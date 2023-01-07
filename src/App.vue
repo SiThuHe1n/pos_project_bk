@@ -114,7 +114,7 @@ window.bootstrap = bootstrap;
           }
       },
       mounted () {
-        localStorage.setItem("link", "http://127.0.0.1:8000");
+        localStorage.setItem("link", "http://kkwstorebk.sithuhein.software");
 
       
       },
