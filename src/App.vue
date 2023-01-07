@@ -26,7 +26,54 @@
     </div>
   </div>
 </nav>
-  <router-view/>
+
+
+
+<nav class="navbar bg-light sticky-top">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" @click="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="navbar-brand" href="#">Japan</a>
+
+          <div  style="width:200px" class="shadow offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false"  tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Japan</h5>
+              <button type="button" class="btn-close" @click="" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="nav flex-column" style="text-align:justify">
+        <li class="nav-item">
+         
+<router-link class="nav-link active" :to="{name:'p_register'}">Product Register</router-link>
+
+        </li>
+        <li class="nav-item">
+          <router-link  class="nav-link active" :to="{name:'saleitem'}">saleitem </router-link>
+
+        </li>
+        <li class="nav-item">
+          <router-link  class="nav-link active" :to="{name:'purchaseitem'}">purchaseitem </router-link>
+
+        </li>
+        <li class="nav-item">
+          <router-link  class="nav-link active" :to="{name:'supplier'}">Supplier </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link  class="nav-link active" :to="{name:'PurchaseHistory'}">PurchaseHistory </router-link>
+        </li>
+
+
+      </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div class="p-5" id="content_div" style="min-height:100vh;padding-top: 20px;">
+        <router-view/>
+      </div>
+
 </template>
 
 <style lang="scss">
@@ -61,12 +108,29 @@ window.bootstrap = bootstrap;
       data () {
           
   
-          return {}
+          return {
+            width:true,
+    
+          }
       },
       mounted () {
         localStorage.setItem("link", "http://127.0.0.1:8000");
 
       
+      },
+      methods: {
+        navon:function()
+    {
+  
+        this.width=!this.width;
+        if(this.width==true)
+        {
+            document.getElementById("content_div").style.marginLeft = "0px";
+        }
+        else{
+            document.getElementById("content_div").style.marginLeft = "200px";
+        }
+    }
       },
   }
   </script>

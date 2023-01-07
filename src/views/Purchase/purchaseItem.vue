@@ -4,10 +4,8 @@
             <div class="row gx-0">
                 <div class="col-sm-5">
                     <div class="row gx-0">
-                        <div class="col-md-4">
-                            <label for="">Search</label>
-                        </div>
-                        <div class="col-md-6">
+                     
+                        <div class="col-md-9">
         
                             <select name="" class=" selectpick" data-live-search="true" v-model="selectpick"  id="selectpick">
                                 <option value=""> Select </option>
@@ -26,19 +24,19 @@
                         <div class="col-md-12">
                             <div class="card p-3 m-3 ms-4 shadow  bg-body rounded">
                                 <div class="row gx-0 mb-3">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                            <label for="">Product Name : </label>
                            
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-7">
                             <input type="text" class="form-control" id="name" v-model="name" disabled>
                         </div>
                     </div>
                     <div class="row gx-0 mb-3">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                            <label for="">Purchase Price : </label>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-7">
                             <input type="number" class="form-control" id="pprice"   v-model="pprice">
                         </div>
                     </div>
@@ -51,10 +49,19 @@
                             <input type="number" class="form-control" id="qty" v-model="qty">
                         </div>
                         <div class="col-md-3">
-                         <select name="" class="form-control" disabled  id="mtype" v-model="mtype">
-                            <option v-for="mt in mtypelist" :value="mt.code">{{mt.name}}</option>
+                         <select name="" class="form-control"   id="mtype" v-model="mtype">
+                            <option value=""> Unit</option>
+                            <option v-for="sl in stocklist" :value="sl.code">
+
+                               
+                                {{ sl.name }}
+                              
+                               </option>
                            
                          </select>
+                         
+                        
+
                         </div>
                     </div>
                     <div class="row gx-0 mb-3 ">
@@ -75,13 +82,15 @@
                     </div>
                
                 </div>
-                <div class="col-sm-7">
+                 <div class="col-sm-7">
+                    <form action=""  ref="form" v-on:submit.prevent="docreate">
+             
                     <div class="row  card p-3 m-2 me-4 mb-3 shadow  bg-body rounded">
                         <div class="col-md-12">
                             <div class="row ">
                                 <div class="col-md-6">
                         <label for="">Supplier</label>   
-                        <select name="" class="form-control" v-model="supplier" id="">
+                        <select name="supplier" class="form-control" v-model="supplier" id="">
                         <option value="Ko Aung">Ko Aung</option>
                         <option value="Ko Aung">Ko Myo</option>
                         <option value="Ko Aung">Ko Soe</option>
@@ -94,17 +103,17 @@
                     
                         <label for="">Total Price</label>   
                         <input type="text" v-model="totalprice" class="form-control" disabled>
-                        <input type="hidden" v-model="totalprice" class="form-control" >
+                        <input type="hidden" name="totalprice" v-model="totalprice" class="form-control" >
                         </div>
                         <div class="col-md-6">
                             <label for="">Total Paid</label>   
-                        <input type="text" class="form-control" v-model="totalpaid">
+                        <input type="text" class="form-control" name="totalpaid" v-model="totalpaid">
                        
                             <label for="">Purchase Date</label>   
-                        <input type="date" v-model="purchasdate" class="form-control" >
+                        <input type="date" name="purchasdate" v-model="purchasdate"  class="form-control" >
                         <br>
-                        <button class="btn btn-primary" type="submit" @click="printvoucher">Purchase</button>
-                       
+                        <button class="btn btn-primary" type="submit" @click="printvoucher">doprint</button>
+                        <button class="btn btn-primary" type="submit" @click="">Purchase</button>
                         
                         </div>
                             </div>
@@ -113,7 +122,7 @@
                     </div>
                     <div class="row card p-3 m-2 me-4 shadow  bg-body rounded">
                         <div class="col-md-12 overflow-scroll">
-                
+                            <input type="text" :value="JSON.stringify(purchaseList)" name="productdata">
                             <table class="table table-bordered ">
                             <thead>
                                 <tr>
@@ -129,15 +138,15 @@
                             <tbody>
                        
 
-                           
+                          
                                 <tr v-for="(plist,index) in purchaseList" v-bind:key = "plist.id">
                                     <td>
                                        {{plist.id=index+1}} 
-                                  <input type="text" :name="'id'+index" :value="plist.pid">
+                                  <!-- <input type="text" :name="'id'+index" :value="plist.pid">
                                   <input type="text" :name="'name'+index" :value="plist.name">
                                   <input type="text" :name="'qty'+index" :value="plist.qty">
                                   <input type="text" :name="'purchase_price'+index" :value="plist.pprice">
-                                  <input type="text" :name="'note'+index" :value="plist.desc">
+                                  <input type="text" :name="'note'+index" :value="plist.desc"> -->
                                    </td>
                                     <td>{{plist.name}}
                                     
@@ -146,10 +155,11 @@
                                     <td><span>{{plist.qty}}</span> <span> {{plist.mtype}}</span></td>
                                     
                                     <td>{{plist.pprice}}</td>
-                                  
+                                    
                                     <td>{{plist.desc}}</td>
-                                    <td><button class="btn btn-danger" @click="removeproduct(index)"><font-awesome-icon icon="fa-solid fa-pen-to-square" />   </button>
-                                        <button class="btn btn-warning" @click="edit(index)"><font-awesome-icon icon="fa-solid fa-trash" /> </button></td>
+                                    <td><button class="btn btn-danger" @click="removeproduct(index)"><font-awesome-icon icon="fa-solid fa-trash" />   </button>
+                                        <!-- <button class="btn btn-warning" @click="edit(index)"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> </button> -->
+                                    </td>
                                     
 
                                 </tr>
@@ -160,7 +170,9 @@
                     
                         </div>
                     </div>
+                </form>
                 </div>
+         
             </div>
                 
 
@@ -247,7 +259,7 @@ export default {
 category:[],
 subcategory:[],
 mtypelist:[],
-purchasdate:'',
+purchasdate:new Date().toISOString().slice(0,10),
             totalpaid:'',
             supplier:'',
             showproduct:[],
@@ -268,22 +280,53 @@ purchasdate:'',
             productlist:null,
             percentage:'',
             selectpick:'',
+            stocklist:[],
 
         }
 
     },
     methods: {
+        showdata:function() {
+
+//                 
+
+ 
+            axios.get(localStorage.getItem("link")+"/api/showstock/"+this.pid, this.$refs.form)
+   .then(response =>{
+    
+    this.stocklist=[];
+   for(let a=0;a<    response.data.length;a++)
+   {
+    
+    for(let b=0;b< this.mtypelist.length;b++)
+    {
+  
+        if(this.mtypelist[b].code== response.data[a].unittype_id)
+        {
+    
+            this.stocklist.push({code:response.data[a].id,name:this.mtypelist[b].name})
+        }
+    }
+   }
+       
+   console.log( this.stocklist)
+
+  
+   })
+   .catch(error => {
+     this.errorMessage = error.message;
+     console.error("There was an error!", error);
+      })
+      
+      
+
+    },
+
+
         docreate:function() {
 
-                  let formdata={
-    supplier_id:this.supplier,
-    totalprice:this.totalprice,
-    totalpayment:this.totalpaid,
-    purchasedate:this.purchasedate,
-    purchase_detail:this.purchaseList,
-  }
-
-            axios.post(localStorage.getItem("link")+"/api/purchase",formdata)
+         
+            axios.post(localStorage.getItem("link")+"/api/purchase", this.$refs.form)
    .then(response =>{console.log(response)
 
 
@@ -386,25 +429,34 @@ axios.get(localStorage.getItem("link")+"/api/"+database)
             let qty=this.qty;
             let mtype=this.mtype;
             let desc=this.desc;
+           
            if(name=="")
            {
+        
+
            return  document.getElementById("name").focus();
            }
        
-            if(pprice=="")
+           else if(pprice=="")
            {
+            
             return document.getElementById("pprice").focus();
            }
-            if(qty=="")
+           else   if(qty=="")
            {
+       
             return document.getElementById("qty").focus();
+           }
+           else  if(mtype=="")
+           {
+            return document.getElementById("mtype").focus();
            }
         
 
            
             for (let a=0;a<this.purchaseList.length;a++)
             {
-                if(this.purchaseList[a].pid==id  &&
+                if(this.purchaseList[a].pid==id  && this.purchaseList[a].mtype==mtype &&
                 this.btnproduct!="Update"
                 
             )
@@ -419,6 +471,7 @@ axios.get(localStorage.getItem("link")+"/api/"+database)
                     if(this.purchaseList[a].name==name && 
                     this.purchaseList[a].pprice==pprice && 
                     this.purchaseList[a].desc==desc && 
+                    this.purchaseList[a].mtype==mtype && 
              
              
              this.purchaseList[a].qty==qty 
@@ -431,7 +484,7 @@ axios.get(localStorage.getItem("link")+"/api/"+database)
              for (let b=0;b<this.purchaseList.length;b++)
              {     
           
-            if(this.purchaseList[b].pid==id && b!=a)
+            if(this.purchaseList[b].pid==id &&    this.purchaseList[b].mtype==mtype &&  b!=a)
              {
                 return (alert('Item Already'))
              }
@@ -541,22 +594,24 @@ axios.get(localStorage.getItem("link")+"/api/"+database)
         setproduct()
         {
             
-        
+         
            for(let a=0;a<this.productlist.length;a++)
            {
             if(this.productlist[a].id==this.selectpick)
             {
                 this.pid= this.productlist[a].id
             this.name=  this.productlist[a].name
-            this.pprice=this.productlist[a].purchase_price
-
+            this.pprice=""
       
-            this.mtype=this.productlist[a].unittype_id
+            this.mtype=""
+            this.qty=""
+            this.desc=""
+            
         
             }
            }
         
-
+           this.showdata();
         },
         printvoucher()
 {
@@ -595,42 +650,6 @@ axios.get(localStorage.getItem("link")+"/api/"+database)
         this.doshow('unittype')
 this.doshowproduct()
 
-        this.showproduct.push(
-            {
-                id:1,
-                name:'Coffee',
-                Brand:'Premier',
-                Category:'Coffee',
-                SubCategory:'Mix',
-                mtype:'pack',
-                sprice:'1500',
-                pprice:'1400'
-            }
-        )
-        this.showproduct.push(
-            {
-                id:1,
-                name:'Juice',
-                Brand:'Premier',
-                Category:'Juice',
-                SubCategory:'Mix',
-                mtype:'pack',
-                sprice:'1500',
-                pprice:'1400'
-            }
-        )
-        this.showproduct.push(
-            {
-                id:1,
-                name:'Orange',
-                Brand:'Premier',
-                Category:'Orange',
-                SubCategory:'Mix',
-                mtype:'pack',
-                sprice:'1500',
-                pprice:'1400'
-            }
-        )
   
         $('.selectpick').selectpicker({
     liveSearch: true,

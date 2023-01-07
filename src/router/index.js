@@ -6,6 +6,13 @@ import saleitem from '../views/Sale/saleItem.vue'
 import supplier from '../views/Purchase/supplier.vue'
 
 
+// purchase
+
+import PurchaseHistory from '../views/Management/PurchaseHistory.vue'
+
+import purchasedetail from '../views/Management/purchasedetail.vue'
+
+
 //product control
 import subcategory from '../views/Product/subcategory.vue'
 import category from '../views/Product/category.vue'
@@ -27,8 +34,18 @@ const routes = [
     name: 'productdetail',
     component: productdetail
   },
+  {
+    path: '/PurchaseHistory',
+    name: 'PurchaseHistory',
+    component: PurchaseHistory
+  },
+  {
+    path: '/purchasedetail',
+    name: 'purchasedetail',
+    component: purchasedetail
+  },
 
-
+  
   {
     path: '/subcategory',
     name: 'subcategory',

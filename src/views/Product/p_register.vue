@@ -13,13 +13,13 @@
                     <input class="form-control m-1" name="code" v-model="productname" type="text" placeholder="Enter Product Name" required>
 
               
-                    <label for="">Quantity</label>
+                    <!-- <label for="">Quantity</label>
                     <input class="form-control m-1" name="amount" v-model="quantity" type="text" placeholder="Enter Product Name">
          
 
-                    
+                     -->
 
-                    <label for="">Purchase Price</label>
+                    <!-- <label for="">Purchase Price</label>
                     <div class="row gx-0 ">
                         <div class="col-sm-12"> 
                             <input type="text" name="price" class="form-control" v-model="purchaseprice">
@@ -27,8 +27,8 @@
 
                     
                                                 
-                     </div>
-
+                     </div> -->
+<!-- 
                      <label for="">Amount </label>
                     <div class="row gx-0 ">
                         <div class="col-sm-12"> 
@@ -37,7 +37,14 @@
 
                     
                                                 
-                     </div>
+                     </div> -->
+
+
+                     <label for="">Description</label>
+                    <textarea  class="form-control" name="description" v-model="productdescription" id="" cols="30" rows="3"></textarea>
+            
+                    
+           
               
                 </div>
                 <div class="col-6 ">
@@ -106,11 +113,7 @@
 
 
              
-                <label for="">Description</label>
-                    <textarea  class="form-control" name="description" v-model="productdescription" id="" cols="30" rows="3"></textarea>
-            
-                    
-           
+               
 
 
        
@@ -191,9 +194,9 @@
                 <th>No</th>
                 <th>Code</th>
                 <th>Name</th>
-                <th>Unit</th>
-                <th>Quantity</th>
-                <th>purchase_price</th>
+                <th>Brand</th>
+                <th>Category</th>
+                <th>Description</th>
           
                 <th>Action</th>
             </tr>
@@ -203,16 +206,15 @@
                 <td> {{++index}} </td>
                 <td> {{dat.code}} </td>
                 <td>  {{dat.name}} </td>
-
-                <td v-for="ut in mtype " >  <span v-if="dat.unittype_id==ut.code">{{dat.unittype_id}}  </span></td>
-                <td>  {{dat.amount}} </td>
-                <td>  {{dat.purchase_price}} </td>
+                <td  > <span v-for="b in listbrand "> <span v-if="dat.brand_id==b.code">{{dat.brand_id}}  </span> </span> </td>
+                <td  > <span v-for="cat in category "> <span v-if="dat.category_id==cat.code">{{dat.category_id}} </span>  </span></td>
+                <td>  {{dat.description}} </td>
      
                 <td>
                     <button @click="productdetail(dat.id)">Detail</button>
                     
-                    <button>Edit</button>
-                    <button>Delete</button></td>
+                    <button class="btn btn-warning" @click="doupdate(dat.id)">Edit</button>
+                    <button class="btn btn-danger" @click="dodelete(dat.id)">Delete</button></td>
             
 
             </tr>
@@ -347,6 +349,22 @@ export default {
          }
 
     },
+    dodelete:function(id) {
+
+
+axios.delete(localStorage.getItem("link")+"/api/product/"+id)
+.then(response =>{console.log(response)
+
+this.doshowproduct()
+
+})
+.catch(error => {
+this.errorMessage = error.message;
+console.error("There was an error!", error);
+})
+
+},
+
  
 doshow:function(database){
 
