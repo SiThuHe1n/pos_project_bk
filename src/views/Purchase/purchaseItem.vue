@@ -1,7 +1,7 @@
 <template>
     <div>
         <section>
-            <div class="row gx-0">
+            <div class="row gx-0 d-flex justify-content-center">
                 <div class="col-sm-8 col-md-7 col-lg-5">
                     <div class="row gx-0">
                      

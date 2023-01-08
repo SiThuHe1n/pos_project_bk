@@ -11,6 +11,6 @@ module.exports = {
     }
   },
   pluginOptions: {
-    cordovaPath: 'Kkwstore'
+    cordovaPath: 'KkwStore'
   }
 }
