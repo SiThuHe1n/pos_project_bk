@@ -187,7 +187,7 @@
 
 <div class="row gx-0 d-flex justify-content-center mt-5">
 <div class="col-sm-10 ">
-    <table class="table table-bordered table-hover">
+    <table ref="tablefeature" class="table table-bordered table-hover">
         <thead> 
             <tr>
              
@@ -211,10 +211,10 @@
                 <td>  {{dat.description}} </td>
      
                 <td>
-                    <button @click="productdetail(dat.id)">Detail</button>
-                    
-                    <button class="btn btn-warning" @click="doupdate(dat.id)">Edit</button>
-                    <button class="btn btn-danger" @click="dodelete(dat.id)">Delete</button></td>
+                    <button class="btn btn-primary" @click="productdetail(dat.id)"><font-awesome-icon icon="fa-solid fa-info" /></button>
+                
+                    <button class="btn btn-warning" @click="doupdate(dat.id)">    <font-awesome-icon icon="fa-solid fa-pen-to-square" /> </button>
+                    <button class="btn btn-danger" @click="dodelete(dat.id)">  <font-awesome-icon icon="fa-solid fa-trash" /></button></td>
             
 
             </tr>
@@ -281,12 +281,32 @@ export default {
 
         }
     },
+    watch: {
+        productlist(val) {
+    this.dat.destroy();
+    this.$nextTick(() => {
+        this.dat= $(this.$refs.tablefeature).DataTable({
+
+            "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+        $('td:eq(0)', nRow).html(iDisplayIndexFull +1);
+    }
+
+        })
+    });
+    }
+},
     mounted () {
+        
         this.doshow('brand')
         this.doshow('category')
         this.doshow('subcategory')
         this.doshow('unittype')
         this.doshowproduct()
+        this.dat= $(this.$refs.tablefeature).DataTable({
+            "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+        $('td:eq(0)', nRow).html(iDisplayIndexFull +1);
+    }
+        })
     },
     methods: {
         productdetail:function(id)

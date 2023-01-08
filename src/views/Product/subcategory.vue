@@ -8,7 +8,7 @@
                 <form action="" ref="form" v-on:submit.prevent="docreate">
                 <div class="card">
                     <div class="card-header">
-                        Category 
+                        Sub Category 
                     </div>
                     <div class="card-body">
 
@@ -41,7 +41,7 @@
 
                 <div class="col-md-10">
                     <div>
-                        <table class="table table-hover table-bordered ">
+                        <table ref="tablefeature" class="display ">
                             <thead>
                                 <tr>
                                     <th >No</th>
@@ -171,8 +171,30 @@ export default {
         
     
     },
+   
     mounted () {
         this.doshow();
+        this.dat= $(this.$refs.tablefeature).DataTable({
+
+"fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+$('td:eq(0)', nRow).html(iDisplayIndexFull +1);
+}
+
+})
+    },
+    watch: {
+        data(val) {
+    this.dat.destroy();
+    this.$nextTick(() => {
+        this.dat= $(this.$refs.tablefeature).DataTable({
+
+            "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+        $('td:eq(0)', nRow).html(iDisplayIndexFull +1);
+    }
+
+        })
+    });
+    }
     },
 }
 </script>

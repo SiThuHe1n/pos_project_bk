@@ -8,6 +8,9 @@ import "bootstrap"
 import swal from 'sweetalert2'
 
 
+import 'datatables.net-dt/css/jquery.dataTables.min.css'
+import {DataTable} from "datatables.net-bs5";
+
 
 
 
@@ -20,13 +23,13 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import { faUserSecret , faPenToSquare,faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faUserSecret , faInfo, faPenToSquare,faTrash } from '@fortawesome/free-solid-svg-icons'
 
 
 
 
 
-library.add(faUserSecret,faPenToSquare,faTrash)
+library.add(faUserSecret,faPenToSquare,faTrash,faInfo)
 
 
 

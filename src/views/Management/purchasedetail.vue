@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="row d-flex justify-content-center">
-            <div class="col-md-10">
-                <table class="table table-hover table-bordered">
+            <div class="col-md-12">
+                <table ref="tablefeature" class="display" style="width:100%">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -58,6 +58,27 @@ mtypelist:[],
         this.doshow('category')
         this.doshow('subcategory')
         this.doshow('unittype')
+        this.dat= $(this.$refs.tablefeature).DataTable({
+
+"fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+$('td:eq(0)', nRow).html(iDisplayIndexFull +1);
+}
+
+})
+    },
+    watch: {
+        purchasedlist(val) {
+    this.dat.destroy();
+    this.$nextTick(() => {
+        this.dat= $(this.$refs.tablefeature).DataTable({
+
+            "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+        $('td:eq(0)', nRow).html(iDisplayIndexFull +1);
+    }
+
+        })
+    });
+    }
     },
     methods: {
         

@@ -1,0 +1,10 @@
+
+# Cordova
+/android app/platforms
+/android app/plugins
+/public/cordova.js
+
+# Cordova
+/Kkwstore/platforms
+/Kkwstore/plugins
+/public/cordova.js

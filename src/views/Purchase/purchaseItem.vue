@@ -2,7 +2,7 @@
     <div>
         <section>
             <div class="row gx-0">
-                <div class="col-sm-5">
+                <div class="col-sm-8 col-md-7 col-lg-5">
                     <div class="row gx-0">
                      
                         <div class="col-md-9">
@@ -42,13 +42,13 @@
                     </div>
                  
                     <div class="row gx-0 mb-3">
-                        <div class="col-md-4">
+                        <div class="col-4">
                            <label for="">Quantity : </label>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-5">
                             <input type="number" class="form-control" id="qty" v-model="qty">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-3">
                          <select name="" class="form-control"   id="mtype" v-model="mtype">
                             <option value=""> Unit</option>
                             <option v-for="sl in stocklist" :value="sl.code">
@@ -82,7 +82,7 @@
                     </div>
                
                 </div>
-                 <div class="col-sm-7">
+                 <div class="col-sm-12 col-md-12 col-lg-7">
                     <form action=""  ref="form" v-on:submit.prevent="docreate">
              
                     <div class="row  card p-3 m-2 me-4 mb-3 shadow  bg-body rounded">
@@ -90,11 +90,10 @@
                             <div class="row ">
                                 <div class="col-md-6">
                         <label for="">Supplier</label>   
-                        <select name="supplier" class="form-control" v-model="supplier" id="">
-                        <option value="Ko Aung">Ko Aung</option>
-                        <option value="Ko Aung">Ko Myo</option>
-                        <option value="Ko Aung">Ko Soe</option>
-                        <option value="Ko Aung">Ko Thu</option>
+                        <select name="supplier" class="form-control" v-model="supplier" id="" required>
+                        <option value="">Select</option>
+                        <option v-for="sl in supplierlist" :value="sl.code">{{ sl.name }}</option>
+                 
                     
                     
                     </select>
@@ -122,7 +121,7 @@
                     </div>
                     <div class="row card p-3 m-2 me-4 shadow  bg-body rounded">
                         <div class="col-md-12 overflow-scroll">
-                            <input type="text" :value="JSON.stringify(purchaseList)" name="productdata">
+                            <input type="hidden" :value="JSON.stringify(purchaseList)" name="productdata">
                             <table class="table table-bordered ">
                             <thead>
                                 <tr>
@@ -152,7 +151,7 @@
                                     
                                     
                                     </td>
-                                    <td><span>{{plist.qty}}</span> <span> {{plist.mtype}}</span></td>
+                                    <td><span>{{plist.qty}}</span>  / <span v-for="sl in stocklist"> <span v-if="sl.code==plist.mtype">{{ sl.name }} </span> </span></td>
                                     
                                     <td>{{plist.pprice}}</td>
                                     
@@ -259,6 +258,7 @@ export default {
 category:[],
 subcategory:[],
 mtypelist:[],
+supplierlist:[],
 purchasdate:new Date().toISOString().slice(0,10),
             totalpaid:'',
             supplier:'',
@@ -322,16 +322,48 @@ purchasdate:new Date().toISOString().slice(0,10),
 
     },
 
+    showsupplier:function()
+        {
+
+          
+     axios.get(localStorage.getItem("link")+"/api/supplier")
+       .then(response =>{console.log(response)
+       this.supplierlist= response.data
+      
+       })
+       .catch(error => {
+         this.errorMessage = error.message;
+         console.error("There was an error!", error);
+          })
+
+        },
 
         docreate:function() {
+
 
          
             axios.post(localStorage.getItem("link")+"/api/purchase", this.$refs.form)
    .then(response =>{console.log(response)
 
 
-   
+    const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-right',
+  iconColor: 'white',
+  customClass: {
+    popup: 'colored-toast'
+  },
+  showConfirmButton: false,
+  timer: 1500,
+  timerProgressBar: true
+})
+ Toast.fire({
+  icon: 'success',
+  title: 'Success'
+})
   
+
+location.reload();
    })
    .catch(error => {
      this.errorMessage = error.message;
@@ -644,6 +676,7 @@ axios.get(localStorage.getItem("link")+"/api/"+database)
 }
     },
     mounted () {
+        this.showsupplier()
         this.doshow('brand')
         this.doshow('category')
         this.doshow('subcategory')

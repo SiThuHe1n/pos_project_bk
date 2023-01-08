@@ -5,7 +5,7 @@
             
                 <div class="row d-flex justify-content-center">
                     <div class="col-5 border p-3 shadow rounded m-2">
-                        <table>
+                        <table >
                             <tr>
                                 <td>Name</td>
                                 <td> </td>
@@ -52,7 +52,7 @@
                 </div>
             </form> -->
             <div class="border rounded shadow p-4 m-3">
-                <table class="table table-hover table-bordered">
+                <table ref="tablefeature" class="display">
                     <thead>
                         <tr>
                         <th>No </th>
@@ -66,7 +66,7 @@
                     <tbody>
                         <tr v-for="(sl,index) in stocklist">
                             <td>{{ ++index }} </td>
-                            <td >  <span v-for="mt in mtype"><span v-if="sl.unittype_id==mt.id">{{ mt.name }}</span> </span>  </td>
+                            <td >  <span v-for="mt in mtype"><span v-if="sl.unittype_id==mt.code">{{ mt.name }}</span> </span>  </td>
                             <td>{{ sl.amount }}  </td>
                             <td>{{ sl.purchaseprice }}  </td>
                             <td>
@@ -77,7 +77,7 @@
                               
                                 <button class="btn btn-danger " @click="dodelete(sl.id)">   <font-awesome-icon icon="fa-solid fa-trash" /> </button>    
                                 <button type="button" class="btn btn-primary" @click="doedit(sl)" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Edit
+                                    <font-awesome-icon icon="fa-solid fa-pen-to-square" /> 
 </button>
 
 <!-- Modal -->
@@ -233,7 +233,7 @@ export default {
 //                 
 
  
-            axios.get(localStorage.getItem("link")+"/api/productstock", this.$refs.form)
+            axios.get(localStorage.getItem("link")+"/api/showstock/"+this.product_id, this.$refs.form)
    .then(response =>{console.log(response)
     
         this.stocklist=response.data
@@ -286,7 +286,29 @@ axios.get(localStorage.getItem("link")+"/api/"+database)
     mounted () {
         this.doshow('unittype');
         this.showdata()
+        this.dat= $(this.$refs.tablefeature).DataTable({
+
+"fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+$('td:eq(0)', nRow).html(iDisplayIndexFull +1);
+}
+
+})
     },
+    watch: {
+        stocklist(val) {
+    this.dat.destroy();
+    this.$nextTick(() => {
+        this.dat= $(this.$refs.tablefeature).DataTable({
+
+            "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+        $('td:eq(0)', nRow).html(iDisplayIndexFull +1);
+    }
+
+        })
+    });
+    }
+},
+
 }
 </script>
 

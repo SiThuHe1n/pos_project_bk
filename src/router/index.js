@@ -57,8 +57,8 @@ const routes = [
     name: 'category',
     component: category
   },
-
-  {
+ 
+  { 
     path: '/unittype',
     name: 'unittype',
     component: unittype
@@ -78,7 +78,7 @@ const routes = [
     component: supplier
   },
   {
-    path: '/a',
+    path: '/ProductList',
     name: 'p_register',
     component: p_register
   },
