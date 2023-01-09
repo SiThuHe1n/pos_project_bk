@@ -13,6 +13,12 @@ import PurchaseHistory from '../views/Management/PurchaseHistory.vue'
 import purchasedetail from '../views/Management/purchasedetail.vue'
 
 
+import saledetail from '../views/Management/sellingdetail.vue'
+
+import salehistory from '../views/Management/sellinghistory.vue'
+
+//report
+import dashboard from '../views/Management/dashboard.vue'
 //product control
 import subcategory from '../views/Product/subcategory.vue'
 import category from '../views/Product/category.vue'
@@ -34,6 +40,24 @@ const routes = [
     name: 'productdetail',
     component: productdetail
   },
+  {
+    path: '/',
+    name: 'dashboard',
+    component: dashboard
+  },
+  
+  {
+    path: '/salehistory',
+    name: 'salehistory',
+    component: salehistory
+  },
+  {
+    path: '/saledetail',
+    name: 'saledetail',
+    component: saledetail
+  },
+  
+
   {
     path: '/PurchaseHistory',
     name: 'PurchaseHistory',
@@ -91,7 +115,7 @@ const routes = [
     component: saleitem
   },
   {
-    path: '/',
+    path: '/purchaseitem',
     name: 'purchaseitem',
     component: purchaseitem
   },

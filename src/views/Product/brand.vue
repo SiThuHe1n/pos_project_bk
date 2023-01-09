@@ -145,7 +145,7 @@ export default {
              else{
                 let article={
                         'name':this.name,
-                        'code':this.code
+                
                     }
                 axios.patch(localStorage.getItem("link")+"/api/brand/"+this.id, article)
        .then(response =>{console.log(response)

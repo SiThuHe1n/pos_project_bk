@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row d-flex justify-content-center">
-            <div class="col-md-5 mb-5">
+            <div class="col-md-7  col-sm-8 col-lg-6 mb-5" v-if="isform==true">
 
 
 
@@ -63,7 +63,11 @@
                                             <button v-if="isedit==false" type="submit" class="btn btn-primary" style="width:100%">Save</button>
                                             <button v-if="isedit==true" type="submit"  class="btn btn-primary" style="width:100%">update</button>
                                             <br>
-                                           <button v-if="isedit==true" @click="isedit=false" type="submit"  class="btn btn-danger" style="width:100%">cancle</button>
+                                            
+
+                                            <button v-if="isedit==false" @click="isform=false" type="submit"  class="btn btn-danger" style="width:100%">cancle</button>
+                                          
+                                           <button v-if="isedit==true" @click="isedit=false;isform=false" type="submit"  class="btn btn-danger" style="width:100%">cancle</button>
                                             </div>
                                         </div>
                         </div>
@@ -73,7 +77,11 @@
                 </div>
 
                 <div class="col-md-10">
-                    <div>
+                    <div class="d-flex justify-content-start">
+                        <button class="btn btn-primary" @click="isform=true" v-if="isform==false"> Add Supplier</button>
+               
+                    </div>
+                      <div>
                         <table ref="tablefeature" class="display">
                             <thead>
                                 <tr>
@@ -141,7 +149,8 @@ export default {
             phone:'',
             email:'',
             phone2:'',
-            address:''
+            address:'',
+            isform:false,
 
         }
     },

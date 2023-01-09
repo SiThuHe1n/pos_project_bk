@@ -3,6 +3,9 @@
         <div>
             <div v-if="isaddproduct==true" class="row gx-0 d-flex justify-content-center">
                 <div class="col-xxl-5 col-xl-8 col-lg-8  col-md-8 border shadow p-5 m-5">
+                  
+                  
+                  
                     <h1> <b>Add Product</b></h1>
                   <form  ref="form"  action="" v-on:submit.prevent="docreate">
                     <div class="row">
@@ -141,47 +144,15 @@
             </div>
       
 
-<div class="row gx-0 d-flex justify-content-center p-5">
-    <div class="col-sm-3  d-flex justify-content-center">
+<div class="row gx-0 d-flex justify-content-start p-5">
+    <div class="col-10  d-flex justify-content-start">
         
 <button type="button" class="btn btn-primary" v-if="isaddproduct==false" @click="isaddproduct=!isaddproduct">
   Add Product
 </button>
 
     </div>
-    <div class="col-sm-4 d-flex justify-content-center">
-        <div class="row ">
-            <div class="col-sm-6">
-                <h5>Filter by Name :</h5>
-            </div>
-            <div class="col-sm-6">
-                <select class="form-control" id="">
-            <option value=""> Filter by Name</option>
-            <option value=""> Filter by Brand</option>
-            <option value=""> Filter by Category</option>
-            <option value=""> Filter by SubCategory</option>
 
-        </select>
-                </div>
-
-        </div>
-     
-        
-            </div>
-            <div class="col-sm-4  d-flex justify-content-center">
-                <div class="row">
-            <div class="col-sm-6">
-                <h5>Search with :</h5>
-            </div>
-            <div class="col-sm-6">
-                <input type="text" placeholder="search" class="form-control">
-      
-                </div>
-
-        </div>
-     
-  
-            </div>
 
 </div>
 
@@ -206,8 +177,8 @@
                 <td> {{++index}} </td>
                 <td> {{dat.code}} </td>
                 <td>  {{dat.name}} </td>
-                <td  > <span v-for="b in listbrand "> <span v-if="dat.brand_id==b.code">{{dat.brand_id}}  </span> </span> </td>
-                <td  > <span v-for="cat in category "> <span v-if="dat.category_id==cat.code">{{dat.category_id}} </span>  </span></td>
+                <td  > <span v-for="b in listbrand "> <span v-if="dat.brand_id==b.code">{{b.name}}  </span> </span> </td>
+                <td  > <span v-for="cat in category "> <span v-if="dat.category_id==cat.code">{{cat.name}} </span>  </span></td>
                 <td>  {{dat.description}} </td>
      
                 <td>
@@ -276,7 +247,7 @@ export default {
             newmtype:'',
       
             isedit:false,
-            isaddproduct:true,
+            isaddproduct:false,
             productlist:null,
 
         }

@@ -94,7 +94,7 @@
 
 
                                 <label for="">Type</label>   
-                                <select id="" name="type" class="form-select">
+                                <select id="" name="type" class="form-select" required>
                                     <option value="">Select</option>
                                     <option value="house-use">House Use</option>
                                     <option value="selling">Selling </option>
@@ -110,10 +110,10 @@
                         </div>
                         <div class="col-md-6">
                             <label for="">Total Paid</label>   
-                        <input type="text" class="form-control" name="totalpaid" v-model="totalpaid">
+                        <input type="text" class="form-control" name="totalpaid" v-model="totalpaid" required> 
                        
                             <label for="">Selling Date</label>   
-                        <input type="date" name="purchasdate" v-model="purchasdate"  class="form-control" >
+                        <input type="date" name="sellingdate" v-model="sellingdate"  class="form-control" required>
                         <br>
                         <button class="btn btn-primary" type="submit" @click="printvoucher">doprint</button>
                         <button class="btn btn-primary" type="submit" @click="">Purchase</button>
@@ -262,7 +262,7 @@ export default {
 category:[],
 subcategory:[],
 mtypelist:[],
-purchasdate:new Date().toISOString().slice(0,10),
+sellingdate:new Date().toISOString().slice(0,10),
             totalpaid:'',
             supplier:'',
             showproduct:[],
@@ -349,7 +349,7 @@ purchasdate:new Date().toISOString().slice(0,10),
 
 
          
-            axios.post(localStorage.getItem("link")+"/api/purchase", this.$refs.form)
+            axios.post(localStorage.getItem("link")+"/api/selling", this.$refs.form)
    .then(response =>{console.log(response)
 
 
@@ -370,7 +370,7 @@ purchasdate:new Date().toISOString().slice(0,10),
 })
   
 
-location.reload();
+//location.reload();
    })
    .catch(error => {
      this.errorMessage = error.message;

@@ -12,12 +12,24 @@
 
           <div  style="width:300px" class="shadow offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false"  tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Japan</h5>
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">KKW-Store</h5>
               <button type="button" class="btn-close" @click="" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
 
-              <p>
+              <ul class="nav flex-column" style="text-align:justify">
+       
+        <li class="nav-item">
+         <router-link  class="nav-link active" :to="{name:'dashboard'}">Dashboard </router-link>
+       </li>
+       <li class="nav-item">
+         <router-link  class="nav-link active" :to="{name:'supplier'}">Supplier </router-link>
+       </li>
+      
+  
+
+     </ul>
+              
   
                 <div class="accordion accordion-flush" id="accordionFlushExample">
   <div class="accordion-item">
@@ -79,11 +91,11 @@
      
 
         <li class="nav-item">
-          <router-link  class="nav-link active" :to="{name:'saleitem'}">saleitem </router-link>
+          <router-link  class="nav-link active" :to="{name:'saleitem'}">Sale  </router-link>
 
         </li>
         <li class="nav-item">
-          <router-link  class="nav-link active" :to="{name:'purchaseitem'}">purchaseitem </router-link>
+          <router-link  class="nav-link active" :to="{name:'purchaseitem'}">Purchase  </router-link>
 
         </li>
 
@@ -105,7 +117,10 @@
         <ul class="nav flex-column" style="text-align:justify">
      
           <li class="nav-item">
-          <router-link  class="nav-link active" :to="{name:'PurchaseHistory'}">PurchaseHistory </router-link>
+          <router-link  class="nav-link active" :to="{name:'PurchaseHistory'}">Purchase History </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link  class="nav-link active" :to="{name:'salehistory'}">Sale History </router-link>
         </li>
 
 
@@ -118,20 +133,11 @@
 </div>
 
 
-</p>
 
 
 
 
-              <ul class="nav flex-column" style="text-align:justify">
-       
-      
-        <li class="nav-item">
-          <router-link  class="nav-link active" :to="{name:'supplier'}">Supplier </router-link>
-        </li>
-   
-
-      </ul>
+          
             </div>
           </div>
         </div>
@@ -202,10 +208,12 @@ nav {
 </style>
 
 <script>
+
 import * as bootstrap from 'bootstrap';
 window.bootstrap = bootstrap;
   
   export default {
+    
       data () {
           
   
@@ -215,8 +223,8 @@ window.bootstrap = bootstrap;
           }
       },
       mounted () {
-    //   localStorage.setItem("link", "http://127.0.0.1:8000");
-      localStorage.setItem("link", "http://kkwstorebk.sithuhein.software");
+       localStorage.setItem("link", "http://127.0.0.1:8000");
+     // localStorage.setItem("link", "http://kkwstorebk.sithuhein.software");
         
       },
       methods: {
